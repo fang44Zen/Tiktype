@@ -29,23 +29,21 @@ const FirstExo = () =>{
 
     const keyHandler = (event) =>{
         if(event.code === "Space"){
-            letters.map(elem =>{
-                if(value === elem.str){
+            setLetters(current=>
+            current.map(elem =>{
+                if(value+' ' === elem.str){
                     console.log("oui")
-                   setLetters({...elem,[elem.color]: "good-answer"});
+                    return{...elem, color:"good-answer"};
+                }else if(value+' ' != elem.str){
+                    return{...elem, color:"wrong-answer"};
                 }
-            })
+                // return elem;
+            }));
             
         }
     }
     const setRed = () =>{
         setLetters([{...letters, color: "wrong-answer"}]);
-    }
-
-    const keyListenerTest = (e) =>{
-        if (e.code === "Space"){
-            console.log("la touche espace fonctionne");
-        }
     }
 
     return(
