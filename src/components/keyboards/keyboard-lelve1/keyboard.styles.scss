@@ -1,0 +1,35 @@
+.keyboard-one-group{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+}
+.key-style{
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    font-size: 80px;
+}
+
+.oriculaire-keys{
+    background-color: #B1AFFF;
+}
+.annulaire-keys{
+    background-color: #C8FFD4;
+}
+.left-index-keys{
+    background-color: #B8E8FC;
+}
+.right-index-keys{
+    background-color: #FDFDBD;
+}
+.majeur-keys{
+    background-color: #FF8787;
+}
+.blank-keys{
+    background-color: #B7C4CF;
+}
+.blink-anim{
+    background-color: darkblue;
+    
+}
