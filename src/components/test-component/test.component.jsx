@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 const TestComponent = () =>{
     const [inputValue, setInputValue] = useState('');
-    const [valueSplitted, setValueSplitted] = useState('')
     const str = "ABCDEF";
     const obj = [
         {

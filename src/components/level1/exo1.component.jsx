@@ -2,26 +2,15 @@ import { useEffect, useState } from "react";
 import './exo1.styles.scss';
 
 const FirstExo = () =>{
+
     const [letters, setLetters] = useState([]);
+    const [inputValue, setInputValue] = useState('');
     const keysList = ['Q','S','D','F','J','K','L','M'];
 
     const resetArray = () =>{
         setLetters([]);
         setInputValue("");
     }
-    useEffect(() =>{
-        for(var i = 0; i < 8; i++){
-            let string = [];
-            let random = Math.floor(Math.random() * keysList.length);
-            string = {str: string+keysList[random], color: "normal-answer"};
-            while(string.length<4){
-                
-                
-            }
-            setLetters(letters => [...letters, string]);
-            
-        }
-    },[]);
     
     const printRandom = () =>{
        resetArray();
@@ -31,10 +20,8 @@ const FirstExo = () =>{
             string = {str: string+keysList[random], color: "normal-answer"};
             while(string.length<4){
                 
-                
             }
             setLetters(letters => [...letters, string]);
-            
         }
     };
 
@@ -56,9 +43,10 @@ const FirstExo = () =>{
 
     useEffect(()=>{
         var charInput = inputValue.charAt(inputValue.length-1);
-       var charRandom =  letters.map(elem =>elem.str);
+        const copyLetter = letters;
+        var charRandom =  copyLetter.map(elem =>elem.str);
         if(charInput === charRandom[inputValue.length-1]){
-            const goodAnswer = letters.map((elem,i)=>{
+            const goodAnswer = copyLetter.map((elem,i)=>{
                 if(i === inputValue.length-1){
                     return {...elem, color: "good-answer",}
                 }else{
@@ -70,7 +58,7 @@ const FirstExo = () =>{
             if(charInput ===""){
 
             }else{
-                const wrongAnswer = letters.map((elem,i)=>{
+                const wrongAnswer = copyLetter.map((elem,i)=>{
                 if(i === inputValue.length-1){
                     return {...elem, color: "wrong-answer",}
                 }else{
@@ -80,27 +68,9 @@ const FirstExo = () =>{
             setLetters(wrongAnswer);
             }
         }
-    }, [inputValue]);
+    }, [inputValue, letters]);
 
-
-    const keyHandler = (event) =>{
-            
-            // for(var i = 0; i<inputValue.length; i++){
-            //     const inputRead =  inputValue.charAt(i).toUpperCase();
-            //     letters.map(elem =>{
-            //         if(elem.str.charAt(i) == inputRead){
-            //             // console.log(inputValue.length);
-            //             // console.log(inputValue.charAt(i));
-            //             console.log("oui");
-            //         }else{
-            //             console.log(inputRead);
-            //             // console.log(inputValue.length);
-            //             // console.log(elem.str.charAt(i) +" n'est pas "+inputValue.charAt(i));
-            //         }
-            //     })
-            // }
-            
-    }
+    const keyHandler = (event) =>{}
 
     return(
         <div>
