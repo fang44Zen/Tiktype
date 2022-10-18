@@ -11,18 +11,16 @@ const FirstExo = () =>{
         setLetters([]);
         setInputValue("");
     }
-    
+
     const printRandom = () =>{
        resetArray();
-        for(var i = 0; i < 8; i++){
+        for(var i = 0; i < 24; i++){
             let string = [];
             let random = Math.floor(Math.random() * keysList.length);
             string = {str: string+keysList[random], color: "normal-answer"};
-            while(string.length<4){
-                
-            }
             setLetters(letters => [...letters, string]);
         }
+        console.log(letters.map(e =>e.str));
     };
 
     const inputListener = (event) =>{
@@ -68,7 +66,7 @@ const FirstExo = () =>{
             setLetters(wrongAnswer);
             }
         }
-    }, [inputValue, letters]);
+    }, [inputValue]);
 
     const keyHandler = (event) =>{}
 
@@ -77,13 +75,15 @@ const FirstExo = () =>{
             <h1>qsdf - jklm</h1>
             <div>
             {letters.map((elem, id) =>(
-                    <label className={elem.color} key={id}>{elem.str}</label>
-                ))}
+                id % 5 ===0 & id > 1 ? <span> </span>:
+                <span className={`${elem.color} charac-list`} key={id}>{elem.str}</span>
+                
+            ))}
                 <button onClick={printRandom}>Start</button>
                 <button onClick={resetArray}>Reset</button>
                 <button onClick={setRed}>set red</button>
             </div>
-            <input type="text" onChange={inputListener} value={inputValue} onKeyDown={keyHandler} />
+            <input type="text" onChange={inputListener} value={inputValue} onKeyDown={keyHandler}  />
         </div>
     )
 }
