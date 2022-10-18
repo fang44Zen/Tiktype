@@ -1,49 +1,105 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './exo1.styles.scss';
 
 const FirstExo = () =>{
     const [letters, setLetters] = useState([]);
-    const [value, setValue] = useState("");
     const keysList = ['Q','S','D','F','J','K','L','M'];
 
     const resetArray = () =>{
         setLetters([]);
+        setInputValue("");
     }
-
+    useEffect(() =>{
+        for(var i = 0; i < 8; i++){
+            let string = [];
+            let random = Math.floor(Math.random() * keysList.length);
+            string = {str: string+keysList[random], color: "normal-answer"};
+            while(string.length<4){
+                
+                
+            }
+            setLetters(letters => [...letters, string]);
+            
+        }
+    },[]);
+    
     const printRandom = () =>{
        resetArray();
-        for(var i = 0; i < 7; i++){
-            let string = [''];
+        for(var i = 0; i < 8; i++){
+            let string = [];
+            let random = Math.floor(Math.random() * keysList.length);
+            string = {str: string+keysList[random], color: "normal-answer"};
             while(string.length<4){
-                let random = Math.floor(Math.random() * keysList.length);
-                string = string+keysList[random];
+                
+                
             }
-            setLetters(letters => [...letters, {str: string+" ", color: "normal-answer"}]);
+            setLetters(letters => [...letters, string]);
+            
         }
-    }
+    };
 
     const inputListener = (event) =>{
         const str = event.target.value;
-        setValue(str)
+        setInputValue(str);
+    };
+
+    const setRed = () =>{
+        const colorUpdate = letters.map((elem, i) =>{
+            if(i !== 4){
+                return elem;
+            }else{
+                return {...elem, color: "wrong-answer",}
+            }
+        })
+        setLetters(colorUpdate)
     }
 
-    const keyHandler = (event) =>{
-        if(event.code === "Space"){
-            setLetters(current=>
-            current.map(elem =>{
-                if(value+' ' === elem.str){
-                    console.log("oui")
-                    return{...elem, color:"good-answer"};
-                }else if(value+' ' != elem.str){
-                    return{...elem, color:"wrong-answer"};
+    useEffect(()=>{
+        var charInput = inputValue.charAt(inputValue.length-1);
+       var charRandom =  letters.map(elem =>elem.str);
+        if(charInput === charRandom[inputValue.length-1]){
+            const goodAnswer = letters.map((elem,i)=>{
+                if(i === inputValue.length-1){
+                    return {...elem, color: "good-answer",}
+                }else{
+                    return elem;
                 }
-                // return elem;
-            }));
-            
+            })
+            setLetters(goodAnswer);
+        }else{
+            if(charInput ===""){
+
+            }else{
+                const wrongAnswer = letters.map((elem,i)=>{
+                if(i === inputValue.length-1){
+                    return {...elem, color: "wrong-answer",}
+                }else{
+                    return elem;
+                }
+            })
+            setLetters(wrongAnswer);
+            }
         }
-    }
-    const setRed = () =>{
-        setLetters([{...letters, color: "wrong-answer"}]);
+    }, [inputValue]);
+
+
+    const keyHandler = (event) =>{
+            
+            // for(var i = 0; i<inputValue.length; i++){
+            //     const inputRead =  inputValue.charAt(i).toUpperCase();
+            //     letters.map(elem =>{
+            //         if(elem.str.charAt(i) == inputRead){
+            //             // console.log(inputValue.length);
+            //             // console.log(inputValue.charAt(i));
+            //             console.log("oui");
+            //         }else{
+            //             console.log(inputRead);
+            //             // console.log(inputValue.length);
+            //             // console.log(elem.str.charAt(i) +" n'est pas "+inputValue.charAt(i));
+            //         }
+            //     })
+            // }
+            
     }
 
     return(
@@ -57,7 +113,7 @@ const FirstExo = () =>{
                 <button onClick={resetArray}>Reset</button>
                 <button onClick={setRed}>set red</button>
             </div>
-            <input type="text" onChange={inputListener} value={value} onKeyPress={(e) =>keyHandler(e)}/>
+            <input type="text" onChange={inputListener} value={inputValue} onKeyDown={keyHandler} />
         </div>
     )
 }
