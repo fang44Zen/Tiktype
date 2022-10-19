@@ -6,13 +6,15 @@ import './exo1.styles.scss';
 const FirstExo = () =>{
 
     const [letters, setLetters] = useState([]);
+    const [playButton, setPlayButton] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const keysList = ['Q','S','D','F','J','K','L','M'];
-    const {keyActive, setKeyActive} = useContext(KeyBoardOneContext);
+    const {setKeyActive} = useContext(KeyBoardOneContext);
 
     const resetArray = () =>{
         setLetters([]);
         setInputValue("");
+        setPlayButton(false);
     }
 
     const printRandom = () =>{
@@ -23,24 +25,13 @@ const FirstExo = () =>{
             string = {str: string+keysList[random], color: "normal-answer"};
             setLetters(letters => [...letters, string]);
         }
-        
+        setPlayButton(true);
     };
 
     const inputListener = (event) =>{
         const str = event.target.value;
         setInputValue(str);
     };
-
-    const setRed = () =>{
-        const colorUpdate = letters.map((elem, i) =>{
-            if(i !== 4){
-                return elem;
-            }else{
-                return {...elem, color: "wrong-answer",}
-            }
-        })
-        setLetters(colorUpdate)
-    }
 
     useEffect(()=>{
         var charInput = inputValue.charAt(inputValue.length-1);
@@ -72,34 +63,29 @@ const FirstExo = () =>{
     }, [inputValue]);
 
     useEffect(()=>{
-        console.log(letters.map(e =>e.str));
         var charRandom =  letters.map(elem =>elem.str);
         var index = inputValue.length;
         setKeyActive(charRandom[index]);
         
     }, [letters])
 
-    // useEffect(()=>{
-    //     console.log(keyActive);
-    // }, [keyActive])
-
-    const keyHandler = (event) =>{}
-
     return(
-        <div>
+        <div className="exo1-main" >
             <h1>qsdf - jklm</h1>
             <KeyboardOne />
-            <div>
-            {letters.map((elem, id) =>(
-                id % 5 ===0 & id > 1 ? <span> </span>:
-                <span className={`${elem.color} charac-list`} key={id}>{elem.str}</span>
-                
-            ))}
-                <button onClick={printRandom}>Start</button>
-                <button onClick={resetArray}>Reset</button>
-                <button onClick={setRed}>set red</button>
-            </div>
-            <input type="text" onChange={inputListener} value={inputValue} onKeyDown={keyHandler}  />
+            {playButton&& <div className="char-nav">
+                <div className="charac-zone">
+                    {letters.map((elem, id) =>(
+                        <span className={`${elem.color} charac-list`} key={id}>{elem.str}</span>
+                    ))}
+                </div>
+                <button className="button-ex1-style" onClick={resetArray}>Reset</button>
+            </div>}
+            {playButton?
+            <input className="input-exo1" type="text" autoFocus onChange={inputListener} value={inputValue} />:
+            <button className="button-ex1-style" type="submit" onClick={printRandom}>Start</button>}
+            
+            
         </div>
     )
 }
