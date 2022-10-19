@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { KeyBoardOneContext } from "../../context/keyboard-1-context/keyboard1-context.context";
 import KeyboardOne from "../keyboards/keyboard-lelve1/keyboard-1.component";
 import './exo1.styles.scss';
 
@@ -6,8 +7,8 @@ const FirstExo = () =>{
 
     const [letters, setLetters] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    const[keyValue, setKeyValue] = useState('');
     const keysList = ['Q','S','D','F','J','K','L','M'];
+    const {keyActive, setKeyActive} = useContext(KeyBoardOneContext);
 
     const resetArray = () =>{
         setLetters([]);
@@ -22,7 +23,7 @@ const FirstExo = () =>{
             string = {str: string+keysList[random], color: "normal-answer"};
             setLetters(letters => [...letters, string]);
         }
-        // console.log(letters.map(e =>e.str));
+        
     };
 
     const inputListener = (event) =>{
@@ -45,8 +46,6 @@ const FirstExo = () =>{
         var charInput = inputValue.charAt(inputValue.length-1);
         const copyLetter = letters;
         var charRandom =  copyLetter.map(elem =>elem.str);
-        setKeyValue(charRandom[inputValue.length-1])
-        console.log(keyValue)
         if(charInput === charRandom[inputValue.length-1]){
             const goodAnswer = copyLetter.map((elem,i)=>{
                 if(i === inputValue.length-1){
@@ -70,16 +69,26 @@ const FirstExo = () =>{
             setLetters(wrongAnswer);
             }
         }
-       
+    }, [inputValue]);
+
+    useEffect(()=>{
+        console.log(letters.map(e =>e.str));
+        var charRandom =  letters.map(elem =>elem.str);
+        var index = inputValue.length;
+        setKeyActive(charRandom[index]);
         
-    }, [inputValue, keyValue]);
+    }, [letters])
+
+    // useEffect(()=>{
+    //     console.log(keyActive);
+    // }, [keyActive])
 
     const keyHandler = (event) =>{}
 
     return(
         <div>
             <h1>qsdf - jklm</h1>
-            <KeyboardOne keyValue={keyValue}/>
+            <KeyboardOne />
             <div>
             {letters.map((elem, id) =>(
                 id % 5 ===0 & id > 1 ? <span> </span>:
