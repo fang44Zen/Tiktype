@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext} from "react";
 import { KeyBoardOneContext } from "../../context/keyboard-1-context/keyboard1-context.context";
 import KeyboardOne from "../keyboards/keyboard-lelve1/keyboard-1.component";
 import './exo1.styles.scss';
@@ -34,11 +34,10 @@ const FirstExo = () =>{
     };
 
     useEffect(()=>{
+        var charRandom = letters.map(elem =>elem.str);
         var charInput = inputValue.charAt(inputValue.length-1);
-        const copyLetter = letters;
-        var charRandom =  copyLetter.map(elem =>elem.str);
         if(charInput === charRandom[inputValue.length-1]){
-            const goodAnswer = copyLetter.map((elem,i)=>{
+            const goodAnswer = letters.map((elem,i)=>{
                 if(i === inputValue.length-1){
                     return {...elem, color: "good-answer",}
                 }else{
@@ -50,7 +49,7 @@ const FirstExo = () =>{
             if(charInput ===""){
 
             }else{
-                const wrongAnswer = copyLetter.map((elem,i)=>{
+                const wrongAnswer = letters.map((elem,i)=>{
                 if(i === inputValue.length-1){
                     return {...elem, color: "wrong-answer",}
                 }else{
@@ -61,12 +60,11 @@ const FirstExo = () =>{
             }
         }
     }, [inputValue]);
-
+    
     useEffect(()=>{
-        var charRandom =  letters.map(elem =>elem.str);
-        var index = inputValue.length;
+        var charRandom =   letters.map(elem =>elem.str);
+        var index =  inputValue.length;
         setKeyActive(charRandom[index]);
-        
     }, [letters])
 
     return(
