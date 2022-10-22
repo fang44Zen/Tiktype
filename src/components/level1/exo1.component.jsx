@@ -65,7 +65,7 @@ const FirstExo = () =>{
         var charRandom =   letters.map(elem =>elem.str);
         var index =  inputValue.length;
         setKeyActive(charRandom[index]);
-    }, [letters])
+    });
 
     return(
         <div className="exo1-main" >
