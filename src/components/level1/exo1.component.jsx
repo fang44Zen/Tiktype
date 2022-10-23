@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext} from "react";
+import { useEffect, useState, useContext, useMemo} from "react";
 import { KeyBoardOneContext } from "../../context/keyboard-1-context/keyboard1-context.context";
 import KeyboardOne from "../keyboards/keyboard-lelve1/keyboard-1.component";
 import './exo1.styles.scss';
@@ -33,7 +33,7 @@ const FirstExo = () =>{
         setInputValue(str);
     };
 
-    useEffect(()=>{
+    const letterMemo = useMemo(()=>{
         var charRandom = letters.map(elem =>elem.str);
         var charInput = inputValue.charAt(inputValue.length-1);
         if(charInput === charRandom[inputValue.length-1]){
@@ -59,7 +59,35 @@ const FirstExo = () =>{
             setLetters(wrongAnswer);
             }
         }
-    }, [inputValue]);
+    }, [letters])
+
+    // useEffect(()=>{
+    //     var charRandom = letters.map(elem =>elem.str);
+    //     var charInput = inputValue.charAt(inputValue.length-1);
+    //     if(charInput === charRandom[inputValue.length-1]){
+    //         const goodAnswer = letters.map((elem,i)=>{
+    //             if(i === inputValue.length-1){
+    //                 return {...elem, color: "good-answer",}
+    //             }else{
+    //                 return elem;
+    //             }
+    //         })
+    //         setLetters(goodAnswer);
+    //     }else{
+    //         if(charInput ===""){
+
+    //         }else{
+    //             const wrongAnswer = letters.map((elem,i)=>{
+    //             if(i === inputValue.length-1){
+    //                 return {...elem, color: "wrong-answer",}
+    //             }else{
+    //                 return elem;
+    //             }
+    //         })
+    //         setLetters(wrongAnswer);
+    //         }
+    //     };
+    // }, [inputValue]);
     
     useEffect(()=>{
         var charRandom =   letters.map(elem =>elem.str);
