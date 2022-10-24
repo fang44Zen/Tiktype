@@ -3,15 +3,19 @@ import { useEffect, useMemo, useState } from "react";
 
 const TestComponent = () =>{
     const [inputValue, setInputValue] = useState('')
-    const [words, setWords] = useState([{str: 'A', color: 'color-one'}, {str: "B", color:"color-one"}, {str: "C", color: "color-one"}]);
+   
 
     const inputHandler =(event) =>{
         const string = event.target.value;
         setInputValue(string);
     }
 
+    const wordsMemo = useMemo(()=>{
+        return [words, setWords] = useState([{str: 'A', color: 'color-one'}, {str: "B", color:"color-one"}, {str: "C", color: "color-one"}]);
+    }, [])
+
     useEffect(()=>{
-        const charWords = words.map(word => word.str);
+        const charWords = wordsMemo.map(word => word.str);
         const charInput = inputValue.charAt(inputValue.length-1);
         if(charInput === charWords[inputValue.length-1]){
             const goodAnswer = words.map((elem,i)=>{
