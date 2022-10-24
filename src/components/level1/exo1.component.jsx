@@ -33,33 +33,9 @@ const FirstExo = () =>{
         setInputValue(str);
     };
 
-    // const letterMemo = useMemo(()=>{
-    //     var charRandom = letters.map(elem =>elem.str);
-    //     var charInput = inputValue.charAt(inputValue.length-1);
-    //     if(charInput === charRandom[inputValue.length-1]){
-    //         const goodAnswer = letters.map((elem,i)=>{
-    //             if(i === inputValue.length-1){
-    //                 return {...elem, color: "good-answer",}
-    //             }else{
-    //                 return elem;
-    //             }
-    //         })
-    //         setLetters(goodAnswer);
-    //     }else{
-    //         if(charInput ===""){
-
-    //         }else{
-    //             const wrongAnswer = letters.map((elem,i)=>{
-    //             if(i === inputValue.length-1){
-    //                 return {...elem, color: "wrong-answer",}
-    //             }else{
-    //                 return elem;
-    //             }
-    //         })
-    //         setLetters(wrongAnswer);
-    //         }
-    //     }
-    // }, [letters])
+    const letterMemo = useMemo(()=>{
+        
+    }, [letters]);
 
     useEffect(()=>{
         var charRandom = letters.map(elem =>elem.str);
