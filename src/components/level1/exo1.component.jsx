@@ -33,9 +33,9 @@ const FirstExo = () =>{
         setInputValue(str);
     };
 
-    // const letterMemo = useMemo(()=>{
+    const letterMemo = useMemo(()=>{
         
-    // }, [letters]);
+    }, [letters]);
 
     useEffect(()=>{
         var charRandom = letters.map(elem =>elem.str);
