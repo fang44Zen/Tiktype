@@ -33,13 +33,10 @@ const FirstExo = () =>{
         setInputValue(str);
     };
 
-    // const letterMemo = useMemo(()=>{
-        
-    // }, [letters]);
-
+    const charRandom = letters.map(elem =>elem.str);
+    const charInput = inputValue.charAt(inputValue.length-1);
     useEffect(()=>{
-        var charRandom = letters.map(elem =>elem.str);
-        var charInput = inputValue.charAt(inputValue.length-1);
+        
         if(charInput === charRandom[inputValue.length-1]){
             const goodAnswer = letters.map((elem,i)=>{
                 if(i === inputValue.length-1){
