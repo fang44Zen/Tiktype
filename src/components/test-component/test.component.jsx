@@ -40,8 +40,10 @@ const TestComponent = () =>{
     
     return(
         <div>
-        
-                    
+            {words.map((elem)=>(
+                <label className={elem.color}>{elem.str}</label>
+            ))}   
+            <input value={inputValue} onChange={inputHandler}/>
         </div>
     )
     }
