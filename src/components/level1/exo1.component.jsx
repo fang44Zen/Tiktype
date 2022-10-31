@@ -1,7 +1,33 @@
-import { useEffect, useState, useContext, useMemo} from "react";
+import { useEffect, useState, useContext, useReducer} from "react";
 import { KeyBoardOneContext } from "../../context/keyboard-1-context/keyboard1-context.context";
 import KeyboardOne from "../keyboards/keyboard-lelve1/keyboard-1.component";
 import './exo1.styles.scss';
+
+const reducer = (state, action) =>{
+    switch(action.type){
+        case "set-changes":
+            return action.payload;
+        case "good-answer":
+            return state.map((elem, i) =>{
+                if(i===action.id){
+                    return{...elem, color: "color-two"};
+                }else{
+                    return elem;
+                }
+            });
+            case "wrong-answer":
+            return state.map((elem,i) =>{
+                if(i === action.id){
+                    return{...elem, color: "color-three"};
+                }else{
+                    return elem;
+                }
+            });
+        default:
+            throw new Error("l'acion "+action.type + "n'existe pas");
+    }
+}
+
 
 const FirstExo = () =>{
 
@@ -10,12 +36,17 @@ const FirstExo = () =>{
     const [inputValue, setInputValue] = useState('');
     const keysList = ['Q','S','D','F','J','K','L','M'];
     const {setKeyActive} = useContext(KeyBoardOneContext);
+    const [updatedWords, dispatch] = useReducer(reducer, letters);
 
     const resetArray = () =>{
         setLetters([]);
         setInputValue("");
         setPlayButton(false);
     }
+
+    useEffect(()=>{
+       dispatch({type: "set-changes", payload:letters})
+    }, [letters]);
 
     const printRandom = () =>{
        resetArray();
@@ -33,34 +64,21 @@ const FirstExo = () =>{
         setInputValue(str);
     };
 
-    const charRandom = letters.map(elem =>elem.str);
-    const charInput = inputValue.charAt(inputValue.length-1);
+    
     useEffect(()=>{
-        
+        const charRandom = letters.map(elem =>elem.str);
+        const charInput = inputValue.charAt(inputValue.length-1);
+
         if(charInput === charRandom[inputValue.length-1]){
-            const goodAnswer = letters.map((elem,i)=>{
-                if(i === inputValue.length-1){
-                    return {...elem, color: "good-answer",}
-                }else{
-                    return elem;
-                }
-            })
-            setLetters(goodAnswer);
+            dispatch({type: "good-answer", id: inputValue.length-1});
         }else{
             if(charInput ===""){
-
+    
             }else{
-                const wrongAnswer = letters.map((elem,i)=>{
-                if(i === inputValue.length-1){
-                    return {...elem, color: "wrong-answer",}
-                }else{
-                    return elem;
-                }
-            })
-            setLetters(wrongAnswer);
-            }
-        };
-    }, [inputValue]);
+            dispatch({type: "wrong-answer", id:  inputValue.length-1});
+        }
+    }
+    }, [inputValue, letters]);
     
     useEffect(()=>{
         var charRandom =   letters.map(elem =>elem.str);
@@ -74,7 +92,7 @@ const FirstExo = () =>{
             <KeyboardOne />
             {playButton&& <div className="char-nav">
                 <div className="charac-zone">
-                    {letters.map((elem, id) =>(
+                    {updatedWords.map((elem, id) =>(
                         <span className={`${elem.color} charac-list`} key={id}>{elem.str}</span>
                     ))}
                 </div>

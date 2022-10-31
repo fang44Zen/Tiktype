@@ -37,7 +37,7 @@ const TestComponent = () =>{
     useEffect(()=>{
         const charWords = words.map(word => word.str);
         const charInput = inputValue.charAt(inputValue.length-1);
-        
+
         if(charInput === charWords[inputValue.length-1]){
             dispatch({type: "good-answer", id: inputValue.length-1});
         }else{
@@ -58,4 +58,4 @@ const TestComponent = () =>{
         </div>
     )
 }
-    export default TestComponent;
+export default TestComponent;
