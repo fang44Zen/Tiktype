@@ -1,59 +1,50 @@
 import "./test.styles.scss"
 import { useEffect, useReducer, useState } from "react";
 
-
+const reducer = (state, action) =>{
+    switch(action.type){
+        case "good-answer":
+            return state.map((elem,i) =>{
+                if(i === action.id){
+                    return{...elem, color: "color-two"};
+                }else{
+                    return elem;
+                }
+            });
+        case "wrong-answer":
+            return state.map((elem,i) =>{
+                if(i === action.id){
+                    return{...elem, color: "color-three"};
+                }else{
+                    return elem;
+                }
+            });
+        default:
+            throw new Error("l'acion "+action.type + "n'existe pas");
+    }
+}
 
 const TestComponent = () =>{
     const [inputValue, setInputValue] = useState('');
-    // const [updatedWords, setUpdatedWords] = useState(words);
     const [words] = useState([{str: 'A', color: 'color-one'}, {str: "B", color:"color-one"}, {str: "C", color: "color-one"}]);
-
-    const reducer = (state, action) =>{
-        switch(action.type){
-            case "good-answer":
-                return{...words, color: "color-two"};
-            case "wrong-answer":
-                return{...words, color: "color-three"};
-            default:
-                throw new Error("l'acion "+action.type + "n'existe pas");
-        }
-    }
-
     const [updateWords, dispatch] = useReducer(reducer, words);
     
     const inputHandler =(event) =>{
         const string = event.target.value;
         setInputValue(string);
-        
     }
 
     useEffect(()=>{
         const charWords = words.map(word => word.str);
         const charInput = inputValue.charAt(inputValue.length-1);
+        
         if(charInput === charWords[inputValue.length-1]){
-            // const goodAnswer = words.map((elem,i)=>{
-            //     if(i === inputValue.length-1){
-            //         return{...elem, color: "color-two",};
-            //     }else{
-            //         return elem;
-            //     }
-            // })
-            // setUpdatedWords(goodAnswer);
-            dispatch({type: "good-answer"});
+            dispatch({type: "good-answer", id: inputValue.length-1});
         }else{
             if(charInput ===""){
     
             }else{
-            //     const wrongAnswer = words.map((elem,i)=>{
-            //     if(i === inputValue.length-1){
-            //         return {...elem, color: "color-three",}
-            //     }else{
-            //         return elem;
-            //     }
-            // })
-            // setUpdatedWords(wrongAnswer);
-            // }
-            dispatch({type: "wrond-answer"});
+            dispatch({type: "wrong-answer", id:  inputValue.length-1});
         }
     }
     }, [inputValue, words]);
