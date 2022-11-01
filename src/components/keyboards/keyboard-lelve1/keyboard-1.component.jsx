@@ -8,7 +8,6 @@ const KeyboardOne = () =>{
     const keysList = ['Q','S','D','F','J','K','L','M'];
      return(
         <div className='keyboard-one-group'>
-            {/* <h1 class="animate__animated animate__flash animate__infinite">An animated element</h1> */}
             <span className={keyActive===keysList[0] ? 'animate__animated animate__flash animate__infinite key-style oriculaire-keys' :
                 'key-style oriculaire-keys'}>{keysList[0]}</span>
             <span className={keyActive===keysList[1] ? 'animate__animated animate__flash animate__infinite key-style annulaire-keys' :

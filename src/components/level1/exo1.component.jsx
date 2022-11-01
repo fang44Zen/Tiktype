@@ -44,6 +44,7 @@ const FirstExo = () =>{
         setPlayButton(false);
     }
 
+    //updating state of the useReducer 
     useEffect(()=>{
        dispatch({type: "set-changes", payload:letters})
     }, [letters]);
