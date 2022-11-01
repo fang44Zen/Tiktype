@@ -73,8 +73,8 @@ const FirstExo = () =>{
         if(charInput === charRandom[inputValue.length-1]){
             dispatch({type: "good-answer", id: inputValue.length-1});
         }else{
-            if(charInput ===""){
-    
+            if(charInput.length ===0){
+                return;
             }else{
             dispatch({type: "wrong-answer", id:  inputValue.length-1});
         }
