@@ -91,7 +91,8 @@ const FirstExo = () =>{
         <div className="exo1-main" >
             <h1>qsdf - jklm</h1>
             <KeyboardOne />
-            {playButton&& <div className="char-nav">
+            {playButton&& 
+            <div className="char-nav">
                 <div className="charac-zone">
                     {updatedWords.map((elem, id) =>(
                         <span className={`${elem.color} charac-list`} key={id}>{elem.str}</span>
