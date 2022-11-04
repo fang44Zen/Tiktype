@@ -4,28 +4,6 @@
     align-items: center;
 }
 
-.char-nav{
-    display: flex;
-    align-items: center;
-    margin: 0 auto ;
-    margin-top: 35px;
-    margin-bottom: 35px;
-    .charac-zone{
-        border: solid black 3px;
-        .charac-list{
-            font-weight: bold;
-            font-size: 41px;
-            margin: 4px;
-        }
-    }
-    .button-ex1-style{
-        border: solid black 3px;
-        border-radius: 0px 20px 20px 0px;
-        background-color: #D2001A;
-        color: white;
-    }
-}
-
 .input-exo1{
     width: 32%;
     font-size: 32px;
