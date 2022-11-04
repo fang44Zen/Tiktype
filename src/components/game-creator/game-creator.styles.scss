@@ -1,7 +1,13 @@
-.exo1-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.good-answer {
+    color: green;
+}
+
+.wrong-answer{
+    color: red;
+}
+
+.normal-answer{
+    color: black;
 }
 
 .char-nav{
@@ -24,17 +30,4 @@
         background-color: #D2001A;
         color: white;
     }
-}
-
-.input-exo1{
-    width: 32%;
-    font-size: 32px;
-    
-}
-
-.button-ex1-style{
-    font-weight: bold;
-    font-size: 28px;
-    width: 120px;
-    height: 60px;
 }
