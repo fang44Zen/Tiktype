@@ -50,8 +50,6 @@ const FirstExo = () =>{
             {playButton?
             <input className="input-exo1" type="text" autoFocus onChange={inputListener} value={inputValue} />:
             <button className="button-ex1-style" type="submit" onClick={printRandom}>Start</button>}
-            
-            
         </div>
     )
 }
